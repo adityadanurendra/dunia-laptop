@@ -15,13 +15,14 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        // 1. Super Admin (Kata sandi diambil dari environment variable untuk keamanan produksi)
-        $superAdminPassword = env('SUPER_ADMIN_PASSWORD', 'SuperAdminSecret123!');
+        $defaultPassword = Hash::make(env('DEFAULT_USER_PASSWORD', '12345678'));
+
+        // 1. Super Admin
         $superAdmin = User::updateOrCreate(
-            ['email' => 'superadmin@dunialaptop.com'],
+            ['email' => 'superadmin@gmail.com'],
             [
                 'name' => 'Super Administrator',
-                'password' => Hash::make($superAdminPassword),
+                'password' => $defaultPassword,
                 'role' => UserRole::SUPER_ADMIN,
                 'phone' => '081200000001',
                 'email_verified_at' => now(),
@@ -29,12 +30,11 @@ class UserSeeder extends Seeder
         );
 
         // 2. Admin Operasional Toko
-        $adminPassword = env('ADMIN_PASSWORD', 'AdminSecret123!');
         User::updateOrCreate(
-            ['email' => 'admin@dunialaptop.com'],
+            ['email' => 'admin@gmail.com'],
             [
                 'name' => 'Store Admin Operasional',
-                'password' => Hash::make($adminPassword),
+                'password' => $defaultPassword,
                 'role' => UserRole::ADMIN,
                 'phone' => '081200000002',
                 'email_verified_at' => now(),
@@ -42,12 +42,11 @@ class UserSeeder extends Seeder
         );
 
         // 3. Staff Produk & Inventori
-        $staffPassword = env('STAFF_PASSWORD', 'StaffSecret123!');
         User::updateOrCreate(
-            ['email' => 'staff@dunialaptop.com'],
+            ['email' => 'staff@gmail.com'],
             [
                 'name' => 'Staff Katalog & Stok',
-                'password' => Hash::make($staffPassword),
+                'password' => $defaultPassword,
                 'role' => UserRole::STAFF,
                 'phone' => '081200000003',
                 'email_verified_at' => now(),
@@ -56,10 +55,10 @@ class UserSeeder extends Seeder
 
         // 4. Pelanggan Contoh (Customer)
         $customer = User::updateOrCreate(
-            ['email' => 'customer@dunialaptop.com'],
+            ['email' => 'customer@gmail.com'],
             [
                 'name' => 'Budi Santoso',
-                'password' => Hash::make('CustomerSecret123!'),
+                'password' => $defaultPassword,
                 'role' => UserRole::CUSTOMER,
                 'phone' => '081298765432',
                 'email_verified_at' => now(),

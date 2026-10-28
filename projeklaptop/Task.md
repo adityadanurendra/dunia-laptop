@@ -73,16 +73,16 @@
 ---
 
 ### 🛒 FASE 4: Keranjang Belanja, Alamat, & Checkout Transaksional
-- [ ] **4.1. Manajemen Keranjang Belanja**
-  - [ ] Buat `app/Services/Cart/CartService.php` menggunakan `DB` facade pada tabel `carts` dan `cart_items`.
-  - [ ] Buat `app/Http/Controllers/Store/CartController.php` (Tambah produk, ubah jumlah kuantitas, hapus item, kosongkan keranjang).
-  - [ ] Buat view keranjang `resources/views/store/cart/index.blade.php` dengan rincian subtotal dan validasi stok realtime.
-- [ ] **4.2. Manajemen Alamat Pengiriman**
-  - [ ] Buat `app/Http/Controllers/Store/AddressController.php` untuk mengelola alamat pelanggan di tabel `addresses`.
-  - [ ] Fitur pilih alamat default, tambah alamat baru, dan form edit alamat.
-- [ ] **4.3. Layanan Checkout & Penguncian Stok (Order Concurrency)**
-  - [ ] Buat `app/Services/Order/OrderService.php`.
-  - [ ] Implementasikan alur `createOrderFromCart()` di dalam `DB::transaction()`:
+- [x] **4.1. Manajemen Keranjang Belanja**
+  - [x] Buat `app/Services/Cart/CartService.php` menggunakan `DB` facade pada tabel `carts` dan `cart_items`.
+  - [x] Buat `app/Http/Controllers/Store/CartController.php` (Tambah produk, ubah jumlah kuantitas, hapus item, kosongkan keranjang).
+  - [x] Buat view keranjang `resources/views/store/cart/index.blade.php` dengan rincian subtotal dan validasi stok realtime.
+- [x] **4.2. Manajemen Alamat Pengiriman**
+  - [x] Buat `app/Http/Controllers/Store/AddressController.php` untuk mengelola alamat pelanggan di tabel `addresses`.
+  - [x] Fitur pilih alamat default, tambah alamat baru, dan form edit alamat.
+- [x] **4.3. Layanan Checkout & Penguncian Stok (Order Concurrency)**
+  - [x] Buat `app/Services/Order/OrderService.php`.
+  - [x] Implementasikan alur `createOrderFromCart()` di dalam `DB::transaction()`:
     1. Kunci baris stok produk dengan `lockForUpdate()`.
     2. Validasi ulang ketersediaan stok setiap item.
     3. Kurangi stok produk secara atomik (`decrement`).
@@ -90,38 +90,38 @@
     5. Simpan snapshot produk ke `order_items` (`product_name`, `product_sku`, `unit_price`, `quantity`, `subtotal`, `snapshot_specs`).
     6. Buat record awal pengiriman pada tabel `shipments` (kurir, alamat lengkap tujuan, status `pending`).
     7. Bersihkan item keranjang belanja.
-- [ ] **4.4. Halaman Checkout**
-  - [ ] Buat `app/Http/Controllers/Store/CheckoutController.php`.
-  - [ ] Buat view checkout `resources/views/store/checkout/index.blade.php` menampilkan ringkasan pesanan, pemilihan alamat, pilihan kurir, dan rincian biaya.
+- [x] **4.4. Halaman Checkout**
+  - [x] Buat `app/Http/Controllers/Store/CheckoutController.php`.
+  - [x] Buat view checkout `resources/views/store/checkout/index.blade.php` menampilkan ringkasan pesanan, pemilihan alamat, pilihan kurir, dan rincian biaya.
 
 ---
 
 ### 💳 FASE 5: Integrasi Pembayaran Midtrans Snap & Webhook Idempoten
-- [ ] **5.1. Midtrans Service & Snap Token Generator**
-  - [ ] Buat `app/Services/Payment/MidtransService.php`.
-  - [ ] Implementasikan metode `createSnapTransaction(Order $order)` untuk memanggil API Midtrans Snap dengan parameter pesanan, rincian item, dan data pelanggan.
-  - [ ] Simpan token pembayaran dan data referensi ke tabel `payments`.
-- [ ] **5.2. Halaman Pembayaran & Midtrans Snap Modal**
-  - [ ] Integrasikan script Snap JS (`app.sandbox.midtrans.com/snap/snap.js`) pada halaman review pembayaran pesanan.
-  - [ ] Munculkan popup Snap otomatis atau via tombol "Bayar Sekarang".
-  - [ ] Buat halaman callback status sementara (Finish / Unfinish / Error URL).
-- [ ] **5.3. Endpoint Webhook / Notifikasi Midtrans Resmi**
-  - [ ] Buat `app/Http/Controllers/Payment/MidtransWebhookController.php` dengan endpoint `POST /midtrans/notification`.
-  - [ ] Kecualikan route ini dari CSRF token verification di `bootstrap/app.php`.
-  - [ ] **Validasi SHA512 Signature**: Verifikasi kecocokan hash `hash('sha512', $orderId . $statusCode . $grossAmount . $serverKey)`.
-  - [ ] **Penanganan Status Idempoten**:
+- [x] **5.1. Midtrans Service & Snap Token Generator**
+  - [x] Buat `app/Services/Payment/MidtransService.php`.
+  - [x] Implementasikan metode `createSnapTransaction(Order $order)` untuk memanggil API Midtrans Snap dengan parameter pesanan, rincian item, dan data pelanggan.
+  - [x] Simpan token pembayaran dan data referensi ke tabel `payments`.
+- [x] **5.2. Halaman Pembayaran & Midtrans Snap Modal**
+  - [x] Integrasikan script Snap JS (`app.sandbox.midtrans.com/snap/snap.js`) pada halaman review pembayaran pesanan.
+  - [x] Munculkan popup Snap otomatis atau via tombol "Bayar Sekarang".
+  - [x] Buat halaman callback status sementara (Finish / Unfinish / Error URL).
+- [x] **5.3. Endpoint Webhook / Notifikasi Midtrans Resmi**
+  - [x] Buat `app/Http/Controllers/Payment/MidtransWebhookController.php` dengan endpoint `POST /midtrans/notification`.
+  - [x] Kecualikan route ini dari CSRF token verification di `bootstrap/app.php`.
+  - [x] **Validasi SHA512 Signature**: Verifikasi kecocokan hash `hash('sha512', $orderId . $statusCode . $grossAmount . $serverKey)`.
+  - [x] **Penanganan Status Idempoten**:
     - Status `settlement` atau `capture` (accept) -> Update pembayaran ke `settlement`, update pesanan ke `processing`.
     - Status `pending` -> Update pembayaran ke `pending`.
     - Status `deny`, `expire`, atau `cancel` -> Update status pesanan ke `cancelled`, status pembayaran ke `cancel`/`expire`, **serta kembalikan stok produk ke database secara otomatis**.
-  - [ ] Kembalikan respons HTTP `200 OK` ke server Midtrans.
+  - [x] Kembalikan respons HTTP `200 OK` ke server Midtrans.
 
 ---
 
 ### 📦 FASE 6: Akun Pelanggan & Riwayat Pesanan
-- [ ] **6.1. Halaman Riwayat Pesanan Pelanggan**
-  - [ ] Buat `app/Http/Controllers/Store/CustomerOrderController.php`.
-  - [ ] Buat view daftar pesanan `resources/views/store/orders/index.blade.php` (menampilkan nomor pesanan, tanggal, total, status pembayaran & pengiriman).
-  - [ ] Buat view rincian pesanan `resources/views/store/orders/show.blade.php`:
+- [x] **6.1. Halaman Riwayat Pesanan Pelanggan**
+  - [x] Buat `app/Http/Controllers/Store/CustomerOrderController.php`.
+  - [x] Buat view daftar pesanan `resources/views/store/orders/index.blade.php` (menampilkan nomor pesanan, tanggal, total, status pembayaran & pengiriman).
+  - [x] Buat view rincian pesanan `resources/views/store/orders/show.blade.php`:
     - Rincian item laptop yang dibeli (snapshot harga & spesifikasi).
     - Status pembayaran (termasuk tombol bayar ulang jika masih `pending`).
     - Status pengiriman dan pelacakan nomor resi.
@@ -130,26 +130,26 @@
 ---
 
 ### 📊 FASE 7: Dashboard Operasional & Laporan Penjualan (Admin & Staff)
-- [ ] **7.1. Layout & Dashboard Ringkasan**
-  - [ ] Buat layout panel admin `resources/views/layouts/admin.blade.php` dengan navigasi berdasarkan hak akses role.
-  - [ ] Buat `app/Http/Controllers/Admin/AdminDashboardController.php`.
-  - [ ] Buat view `resources/views/admin/dashboard.blade.php` menampilkan ringkasan metrik (Total Penjualan Valid, Pesanan Baru, Stok Menipis, Ringkasan Transaksi).
-- [ ] **7.2. Manajemen Pesanan & Pengiriman (Role: Admin)**
-  - [ ] Buat `app/Http/Controllers/Admin/OrderManagementController.php`.
-  - [ ] Halaman daftar seluruh pesanan dengan filter status (`pending`, `processing`, `shipped`, `completed`, `cancelled`).
-  - [ ] Form rincian pesanan & update status pesanan.
-  - [ ] Input kurir, nomor resi pengiriman, serta pembaruan status shipment (`picked_up`, `in_transit`, `delivered`).
-- [ ] **7.3. Laporan Penjualan (Role: Admin & Super Admin)**
-  - [ ] Buat `app/Http/Controllers/Admin/SalesReportController.php`.
-  - [ ] Filter transaksi berdasarkan rentang tanggal (`start_date` s/d `end_date`) dan status.
-  - [ ] Agregasi metrik akurat via Query Builder: Total omzet pembayaran berhasil (`settlement`), kuantitas produk terjual, dan daftar laptop terlaris.
-  - [ ] Tampilan laporan siap cetak / ekspor data ringkasan.
-- [ ] **7.4. Manajemen Produk Laptop (Role: Staff & Admin)**
-  - [ ] Buat `app/Http/Controllers/Admin/ProductManagementController.php`.
-  - [ ] Form tambah & edit laptop (nama, brand, kategori, SKU, kondisi Baru/Bekas, deskripsi detail).
-  - [ ] Form spesifikasi teknis lengkap (CPU, GPU, RAM, Storage, Layar, Baterai, Port, Garansi).
-  - [ ] Manajemen galeri gambar produk (upload gambar, hapus foto, set foto utama).
-  - [ ] Pembaruan cepat stok dan harga laptop.
+- [x] **7.1. Layout & Dashboard Ringkasan**
+  - [x] Buat layout panel admin `resources/views/layouts/admin.blade.php` dengan navigasi berdasarkan hak akses role.
+  - [x] Buat `app/Http/Controllers/Admin/AdminDashboardController.php`.
+  - [x] Buat view `resources/views/admin/dashboard.blade.php` menampilkan ringkasan metrik (Total Penjualan Valid, Pesanan Baru, Stok Menipis, Ringkasan Transaksi).
+- [x] **7.2. Manajemen Pesanan & Pengiriman (Role: Admin)**
+  - [x] Buat `app/Http/Controllers/Admin/OrderManagementController.php`.
+  - [x] Halaman daftar seluruh pesanan dengan filter status (`pending`, `processing`, `shipped`, `completed`, `cancelled`).
+  - [x] Form rincian pesanan & update status pesanan.
+  - [x] Input kurir, nomor resi pengiriman, serta pembaruan status shipment (`picked_up`, `in_transit`, `delivered`).
+- [x] **7.3. Laporan Penjualan (Role: Admin & Super Admin)**
+  - [x] Buat `app/Http/Controllers/Admin/SalesReportController.php`.
+  - [x] Filter transaksi berdasarkan rentang tanggal (`start_date` s/d `end_date`) dan status.
+  - [x] Agregasi metrik akurat via Query Builder: Total omzet pembayaran berhasil (`settlement`), kuantitas produk terjual, dan daftar laptop terlaris.
+  - [x] Tampilan laporan siap cetak / ekspor data ringkasan.
+- [x] **7.4. Manajemen Produk Laptop (Role: Staff & Admin)**
+  - [x] Buat `app/Http/Controllers/Admin/ProductManagementController.php`.
+  - [x] Form tambah & edit laptop (nama, brand, kategori, SKU, kondisi Baru/Bekas, deskripsi detail).
+  - [x] Form spesifikasi teknis lengkap (CPU, GPU, RAM, Storage, Layar, Baterai, Port, Garansi).
+  - [x] Manajemen galeri gambar produk (upload gambar, hapus foto, set foto utama).
+  - [x] Pembaruan cepat stok dan harga laptop.
 
 ---
 

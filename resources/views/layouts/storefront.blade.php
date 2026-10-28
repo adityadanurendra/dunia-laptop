@@ -324,7 +324,12 @@
 
             <div class="grid grid-cols-2 gap-2 text-sm font-semibold">
                 <a href="{{ route('home') }}" class="px-3 py-2 rounded-xl bg-slate-50 text-slate-800">Beranda</a>
-                <a href="{{ route('catalog.index') }}" class="px-3 py-2 rounded-xl bg-slate-50 text-slate-800">Semua Katalog</a>
+                <a href="{{ route('cart.index') }}" class="px-3 py-2 rounded-xl bg-slate-50 text-slate-800 flex items-center justify-between">
+                    <span>Keranjang</span>
+                    @if(($cartCount ?? 0) > 0)
+                        <span class="px-2 py-0.5 rounded-full bg-store-primary text-white text-xs font-bold">{{ $cartCount }}</span>
+                    @endif
+                </a>
                 <a href="{{ route('catalog.index', ['condition' => 'new']) }}" class="px-3 py-2 rounded-xl bg-emerald-50 text-emerald-700">Laptop Baru</a>
                 <a href="{{ route('catalog.index', ['condition' => 'used']) }}" class="px-3 py-2 rounded-xl bg-amber-50 text-amber-800">Laptop Bekas</a>
             </div>

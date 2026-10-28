@@ -76,7 +76,13 @@ class GoogleAuthController extends Controller
             }
         }
 
+        $guestSessionId = $request->session()->getId();
+
         Auth::login($user, remember: true);
+
+        if (! empty($guestSessionId)) {
+            app(\App\Services\Cart\CartService::class)->mergeSessionCartToUser($user->id, $guestSessionId);
+        }
 
         $request->session()->regenerate();
 

@@ -24,7 +24,13 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $guestSessionId = $request->session()->getId();
+
         $request->authenticate();
+
+        if (Auth::check() && ! empty($guestSessionId)) {
+            app(\App\Services\Cart\CartService::class)->mergeSessionCartToUser(Auth::id(), $guestSessionId);
+        }
 
         $request->session()->regenerate();
 

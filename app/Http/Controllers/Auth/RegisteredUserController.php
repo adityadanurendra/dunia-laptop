@@ -46,7 +46,15 @@ class RegisteredUserController extends Controller
 
         event(new Registered($user));
 
+        $guestSessionId = $request->session()->getId();
+
         Auth::login($user);
+
+        if (! empty($guestSessionId)) {
+            app(\App\Services\Cart\CartService::class)->mergeSessionCartToUser($user->id, $guestSessionId);
+        }
+
+        $request->session()->regenerate();
 
         return redirect($user->defaultRedirectUrl());
     }

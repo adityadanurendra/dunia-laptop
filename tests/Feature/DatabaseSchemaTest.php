@@ -40,21 +40,21 @@ class DatabaseSchemaTest extends TestCase
 
     public function test_super_admin_and_roles_are_seeded_correctly(): void
     {
-        $superAdmin = User::where('email', 'superadmin@dunialaptop.com')->first();
+        $superAdmin = User::where('email', 'superadmin@gmail.com')->first();
         $this->assertNotNull($superAdmin);
         $this->assertEquals(UserRole::SUPER_ADMIN, $superAdmin->role);
         $this->assertTrue($superAdmin->isSuperAdmin());
         $this->assertFalse($superAdmin->isAdmin());
 
-        $admin = User::where('email', 'admin@dunialaptop.com')->first();
+        $admin = User::where('email', 'admin@gmail.com')->first();
         $this->assertNotNull($admin);
         $this->assertTrue($admin->isAdmin());
 
-        $staff = User::where('email', 'staff@dunialaptop.com')->first();
+        $staff = User::where('email', 'staff@gmail.com')->first();
         $this->assertNotNull($staff);
         $this->assertTrue($staff->isStaff());
 
-        $customer = User::where('email', 'customer@dunialaptop.com')->first();
+        $customer = User::where('email', 'customer@gmail.com')->first();
         $this->assertNotNull($customer);
         $this->assertTrue($customer->isCustomer());
         $this->assertCount(1, $customer->addresses);
