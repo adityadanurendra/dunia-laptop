@@ -2,6 +2,11 @@
 
 namespace App\Providers;
 
+use App\Services\Catalog\ProductQueryService;
+use App\Services\Store\StorefrontDataService;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -19,6 +24,24 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        View::composer('layouts.storefront', function (\Illuminate\View\View $view) {
+            $storefrontService = app(StorefrontDataService::class);
+            $productQueryService = app(ProductQueryService::class);
+
+            $siteSettings = $storefrontService->getPublicSettings();
+            $navCategories = Schema::hasTable('categories') && Schema::hasTable('products') && Schema::hasTable('brands')
+                ? $productQueryService->getActiveCategories()
+                : collect();
+
+            $userId = Auth::id();
+            $sessionId = request()->hasSession() ? request()->session()->getId() : null;
+            $cartCount = $storefrontService->getCartItemCount($userId, $sessionId);
+
+            $view->with([
+                'siteSettings' => $siteSettings,
+                'navCategories' => $navCategories,
+                'cartCount' => $cartCount,
+            ]);
+        });
     }
 }

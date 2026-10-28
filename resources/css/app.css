@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+    :root {
+        --color-store-primary: 37 99 235;
+        --color-store-accent: 14 165 233;
+    }
+}
+
+[x-cloak] {
+    display: none !important;
+}

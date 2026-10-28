@@ -56,6 +56,27 @@ class SiteSettingSeeder extends Seeder
                 'is_public' => true,
             ],
             [
+                'key' => 'operating_hours',
+                'group' => 'contact',
+                'value' => 'Senin - Minggu, 09:00 - 21:00 WIB',
+                'type' => 'string',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'theme_primary_color',
+                'group' => 'appearance',
+                'value' => '#2563eb',
+                'type' => 'string',
+                'is_public' => true,
+            ],
+            [
+                'key' => 'theme_accent_color',
+                'group' => 'appearance',
+                'value' => '#0ea5e9',
+                'type' => 'string',
+                'is_public' => true,
+            ],
+            [
                 'key' => 'midtrans_environment',
                 'group' => 'payment',
                 'value' => 'sandbox',

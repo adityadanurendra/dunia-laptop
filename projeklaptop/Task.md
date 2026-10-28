@@ -46,25 +46,25 @@
 ---
 
 ### 💻 FASE 3: Homepage Dinamis & Katalog Produk (DB Facade)
-- [ ] **3.1. Service Query Produk & Katalog**
-  - [ ] Buat `app/Services/Catalog/ProductQueryService.php` menggunakan `DB::table('products')`.
-  - [ ] Implementasikan query daftar produk dengan join ke `categories`, `brands`, dan gambar utama `product_images`.
-  - [ ] Tambahkan fungsionalitas pencarian nama/SKU/deskripsi laptop.
-  - [ ] Tambahkan filter multi-kriteria:
+- [x] **3.1. Service Query Produk & Katalog**
+  - [x] Buat `app/Services/Catalog/ProductQueryService.php` menggunakan `DB::table('products')`.
+  - [x] Implementasikan query daftar produk dengan join ke `categories`, `brands`, dan gambar utama `product_images`.
+  - [x] Tambahkan fungsionalitas pencarian nama/SKU/deskripsi laptop.
+  - [x] Tambahkan filter multi-kriteria:
     - Kondisi: Baru (`new`) vs Bekas (`used`).
     - Kategori & Brand.
     - Rentang harga minimum & maksimum.
     - Status publikasi (`published`) dan ketersediaan stok (`stock > 0`).
-  - [ ] Implementasikan pengurutan (Terbaru, Harga Termurah, Harga Termahal).
-- [ ] **3.2. Halaman Beranda Dinamis (Storefront Homepage)**
-  - [ ] Buat `app/Http/Controllers/Store/HomeController.php`.
-  - [ ] Query data sections aktif dari `homepage_sections` sesuai `sort_order` dan pengaturan `site_settings`.
-  - [ ] Buat layout storefront `resources/views/layouts/storefront.blade.php` dengan navbar, tema toko dinamis, dan footer.
-  - [ ] Buat view `resources/views/store/home.blade.php` merender banner hero, kategori pilihan, laptop unggulan, produk terbaru, dan FAQ.
-- [ ] **3.3. Halaman Katalog & Detail Produk**
-  - [ ] Buat `app/Http/Controllers/Store/ProductCatalogController.php`.
-  - [ ] Buat view katalog `resources/views/store/catalog/index.blade.php` dengan filter sidebar interaktif dan grid kartu produk.
-  - [ ] Buat view detail laptop `resources/views/store/catalog/show.blade.php`:
+  - [x] Implementasikan pengurutan (Terbaru, Harga Termurah, Harga Termahal).
+- [x] **3.2. Halaman Beranda Dinamis (Storefront Homepage)**
+  - [x] Buat `app/Http/Controllers/Store/HomeController.php`.
+  - [x] Query data sections aktif dari `homepage_sections` sesuai `sort_order` dan pengaturan `site_settings`.
+  - [x] Buat layout storefront `resources/views/layouts/storefront.blade.php` dengan navbar, tema toko dinamis, dan footer.
+  - [x] Buat view `resources/views/store/home.blade.php` merender banner hero, kategori pilihan, laptop unggulan, produk terbaru, dan FAQ.
+- [x] **3.3. Halaman Katalog & Detail Produk**
+  - [x] Buat `app/Http/Controllers/Store/ProductCatalogController.php`.
+  - [x] Buat view katalog `resources/views/store/catalog/index.blade.php` dengan filter sidebar interaktif dan grid kartu produk.
+  - [x] Buat view detail laptop `resources/views/store/catalog/show.blade.php`:
     - Galeri foto produk (multi-angle).
     - Badge kondisi (Baru / Bekas) dengan rincian kondisi fisik jika bekas.
     - Tabel spesifikasi lengkap (Processor, RAM, Storage, GPU, Display, Baterai, OS, Garansi).
