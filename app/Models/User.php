@@ -24,6 +24,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'email_verified_at',
         'password',
         'role',
         'phone',
@@ -88,5 +89,14 @@ class User extends Authenticatable
     public function isCustomer(): bool
     {
         return $this->role === UserRole::CUSTOMER;
+    }
+
+    public function defaultRedirectUrl(): string
+    {
+        if ($this->isSuperAdmin() || $this->isAdmin() || $this->isStaff()) {
+            return route('admin.dashboard');
+        }
+
+        return route('home');
     }
 }

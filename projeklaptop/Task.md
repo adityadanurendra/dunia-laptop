@@ -19,29 +19,29 @@
 ## 📋 DAFTAR TUGAS EKSEKUSI
 
 ### 🚀 FASE 1: Fondasi, Package & Lingkungan Pengembangan
-- [ ] **1.1. Inisialisasi Git & Perlindungan Secret**
-  - [ ] Inisialisasi repositori Git lokal (`git init`).
-  - [ ] Pastikan `.gitignore` memuat `.env`, `node_modules`, `/vendor`, dan file storage privat.
-- [ ] **1.2. Instalasi Package yang Dibutuhkan**
-  - [ ] Install `laravel/socialite` untuk login Google.
-  - [ ] Pasang helper / client library untuk Midtrans Snap API.
-- [ ] **1.3. Konfigurasi Environment & Services**
-  - [ ] Daftarkan konfigurasi `google` dan `midtrans` di `config/services.php`.
-  - [ ] Perbarui `.env.example` dengan variabel `MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_IS_PRODUCTION`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`.
+- [x] **1.1. Inisialisasi Git & Perlindungan Secret**
+  - [x] Inisialisasi repositori Git lokal (`git init`).
+  - [x] Pastikan `.gitignore` memuat `.env`, `node_modules`, `/vendor`, dan file storage privat.
+- [x] **1.2. Instalasi Package yang Dibutuhkan**
+  - [x] Install `laravel/socialite` untuk login Google.
+  - [x] Pasang helper / client library untuk Midtrans Snap API.
+- [x] **1.3. Konfigurasi Environment & Services**
+  - [x] Daftarkan konfigurasi `google` dan `midtrans` di `config/services.php`.
+  - [x] Perbarui `.env.example` dengan variabel `MIDTRANS_SERVER_KEY`, `MIDTRANS_CLIENT_KEY`, `MIDTRANS_IS_PRODUCTION`, `GOOGLE_CLIENT_ID`, `GOOGLE_CLIENT_SECRET`, `GOOGLE_REDIRECT_URI`.
 
 ---
 
 ### 🔐 FASE 2: Autentikasi & Role-Based Access Control (RBAC)
-- [ ] **2.1. Middleware Hak Akses Role**
-  - [ ] Buat `app/Http/Middleware/RoleMiddleware.php` untuk memvalidasi akses peran pengguna (`super_admin`, `admin`, `staff`, `customer`).
-  - [ ] Daftarkan alias middleware `role` di `bootstrap/app.php`.
-- [ ] **2.2. Penyesuaian Alur Registrasi & Login Standar**
-  - [ ] Pastikan pendaftaran akun baru melalui `RegisteredUserController` secara otomatis menetapkan role `customer`.
-  - [ ] Konfigurasi alur pengalihan login (*login redirect*): Super Admin / Admin / Staff diarahkan ke dashboard operasional, sedangkan Customer diarahkan ke halaman utama / akun.
-- [ ] **2.3. Autentikasi Google OAuth (Laravel Socialite)**
-  - [ ] Buat `app/Http/Controllers/Auth/GoogleAuthController.php` (fungsi `redirectToGoogle` dan `handleGoogleCallback`).
-  - [ ] Tangani pembuatan akun baru dengan Google ID, email terverifikasi, dan role `customer`, atau login akun yang sudah ada.
-  - [ ] Tambahkan tombol "Masuk dengan Google" pada halaman login dan register (`resources/views/auth/login.blade.php` & `register.blade.php`).
+- [x] **2.1. Middleware Hak Akses Role**
+  - [x] Buat `app/Http/Middleware/RoleMiddleware.php` untuk memvalidasi akses peran pengguna (`super_admin`, `admin`, `staff`, `customer`).
+  - [x] Daftarkan alias middleware `role` di `bootstrap/app.php`.
+- [x] **2.2. Penyesuaian Alur Registrasi & Login Standar**
+  - [x] Pastikan pendaftaran akun baru melalui `RegisteredUserController` secara otomatis menetapkan role `customer`.
+  - [x] Konfigurasi alur pengalihan login (*login redirect*): Super Admin / Admin / Staff diarahkan ke dashboard operasional, sedangkan Customer diarahkan ke halaman utama / akun.
+- [x] **2.3. Autentikasi Google OAuth (Laravel Socialite)**
+  - [x] Buat `app/Http/Controllers/Auth/GoogleAuthController.php` (fungsi `redirectToGoogle` dan `handleGoogleCallback`).
+  - [x] Tangani pembuatan akun baru dengan Google ID, email terverifikasi, dan role `customer`, atau login akun yang sudah ada.
+  - [x] Tambahkan tombol "Masuk dengan Google" pada halaman login dan register (`resources/views/auth/login.blade.php` & `register.blade.php`).
 
 ---
 
